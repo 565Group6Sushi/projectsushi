@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController characterController;
-    private float gravity = -9.81f;
+    private float gravity = -9.81f, movementAcceleration = 5f;
 
-    public float playerSpeed = 2.0f, jumpHeight = 1.0f;
+    public float playerSpeed = 3.0f, runSpeed = 1.5f, jumpHeight = 2.0f, currentSpeed = 0;
     public bool isGrounded;
     public float turnSmoothTime = 0.15f;
 
@@ -45,6 +45,33 @@ public class PlayerMovement : MonoBehaviour
         // Movement
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
+        Debug.Log("Horiz:" + horizontalInput + " | Verti:" + verticalInput);
+
+        // Move acceleration
+        if (horizontalInput != 0)
+        {
+            currentSpeed = currentSpeed + movementAcceleration * Time.deltaTime;
+        }
+        else if (verticalInput != 0)
+        {
+            currentSpeed = currentSpeed + movementAcceleration * Time.deltaTime;
+        }
+        else
+        {
+            // Move deceleration
+            currentSpeed = currentSpeed - movementAcceleration * Time.deltaTime;
+
+            if (currentSpeed < 0)
+            {
+                currentSpeed = 0;
+            }
+        }
+
+        if (currentSpeed > playerSpeed)
+        {
+            currentSpeed = playerSpeed;
+        }
+
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
         if (movement.magnitude >= 0.1f)
@@ -56,7 +83,14 @@ public class PlayerMovement : MonoBehaviour
 
             // Handle Movement
             Vector3 movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            characterController.Move(movementDirection.normalized * playerSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                characterController.Move(movementDirection.normalized * currentSpeed * runSpeed * Time.deltaTime);
+            }
+            else
+            {
+                characterController.Move(movementDirection.normalized * currentSpeed * Time.deltaTime);
+            }
         }
     }
 
