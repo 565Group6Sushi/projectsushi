@@ -5,9 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float walkSpeed = 5, runSpeed = 8, runAcceleration = 7, rotationSpeed = 500, jumpHeight = 10, gravityModifier = 3;
-    public bool isGrounded;
 
-    private Animator animator;
     private CharacterController characterController;
     private float currentSpeed, ySpeed;
 
@@ -15,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,8 +28,6 @@ public class PlayerMovement : MonoBehaviour
         // Handle running
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            animator.SetBool("isRunning", true);
-
             // Acceleration
             currentSpeed += runAcceleration * Time.deltaTime;
             if (currentSpeed > runSpeed)
@@ -42,8 +37,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            animator.SetBool("isRunning", false);
-
             // Deceleration
             if (currentSpeed > walkSpeed)
             {
@@ -69,15 +62,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (characterController.isGrounded)
         {
-            animator.SetBool("isJumping", false);
-        }
-        else
-        {
-            animator.SetBool("isJumping", true);
-        }
-
-        if (characterController.isGrounded)
-        {
             ySpeed = -0.5f;
 
             if (Input.GetButtonDown("Jump"))
@@ -100,14 +84,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (characterAngle != Vector3.zero)
         {
-            animator.SetBool("isWalking", true);
-
             Quaternion rotation = Quaternion.LookRotation(characterAngle, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
         }
     }
 }
