@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float walkSpeed = 5, runSpeed = 8, runAcceleration = 7, rotationSpeed = 500, jumpHeight = 10, gravityModifier = 3;
+
     private CharacterController characterController;
-    private float gravity = -9.81f, movementAcceleration = 5f;
-
-    public float playerSpeed = 3.0f, runSpeed = 1.5f, jumpHeight = 2.0f, currentSpeed = 0;
-    public bool isGrounded;
-    public float turnSmoothTime = 0.15f;
-
-    Vector3 velocity;
-    float turnSmoothVelocity;
-
+    private float currentSpeed, ySpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -24,89 +18,74 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check Grounded
-        CheckGrounded();
+        // Get inputs
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        if (isGrounded && velocity.y < 0)
+        // Set angle of movement
+        Vector3 movementAngle = new Vector3(horizontalInput,    0f, verticalInput);
+
+        // Handle running
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            velocity.y = -2f;
-        }
-
-        // Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-        }
-
-        // Gravity
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
-
-        // Movement
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        Debug.Log("Horiz:" + horizontalInput + " | Verti:" + verticalInput);
-
-        // Move acceleration
-        if (horizontalInput != 0)
-        {
-            currentSpeed = currentSpeed + movementAcceleration * Time.deltaTime;
-        }
-        else if (verticalInput != 0)
-        {
-            currentSpeed = currentSpeed + movementAcceleration * Time.deltaTime;
+            // Acceleration
+            currentSpeed += runAcceleration * Time.deltaTime;
+            if (currentSpeed > runSpeed)
+            {
+                currentSpeed = runSpeed;
+            }
         }
         else
         {
-            // Move deceleration
-            currentSpeed = currentSpeed - movementAcceleration * Time.deltaTime;
-
-            if (currentSpeed < 0)
+            // Deceleration
+            if (currentSpeed > walkSpeed)
             {
-                currentSpeed = 0;
-            }
-        }
-
-        if (currentSpeed > playerSpeed)
-        {
-            currentSpeed = playerSpeed;
-        }
-
-        Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-        if (movement.magnitude >= 0.1f)
-        {
-            // Handle Player Direction
-            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            // Handle Movement
-            Vector3 movementDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                characterController.Move(movementDirection.normalized * currentSpeed * runSpeed * Time.deltaTime);
+                currentSpeed -= runAcceleration * Time.deltaTime;
+                if (currentSpeed < walkSpeed)
+                {
+                    currentSpeed = walkSpeed;
+                }
             }
             else
             {
-                characterController.Move(movementDirection.normalized * currentSpeed * Time.deltaTime);
+                currentSpeed = walkSpeed;
             }
         }
-    }
 
-    void CheckGrounded()
-    {
-        RaycastHit hit;
-        float distance = 1f;
-        Vector3 direction = new Vector3(0, -1);
+        float magnitude = Mathf.Clamp01(movementAngle.magnitude) * currentSpeed;
+        movementAngle.Normalize();
 
-        if (Physics.Raycast(transform.position, direction, out hit, distance))
+        Vector3 velocity = movementAngle * magnitude;
+
+        // Handle jumping
+        ySpeed += Physics.gravity.y * gravityModifier * Time.deltaTime;
+
+        if (characterController.isGrounded)
         {
-            isGrounded = true;
+            ySpeed = -0.5f;
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                ySpeed = jumpHeight;
+            }
         }
-        else
+        
+        velocity.y = ySpeed;
+
+        // Move character
+        characterController.Move(velocity * Time.deltaTime);
+
+        // Set angle of character
+        float horizontalRot = Input.GetAxisRaw("Horizontal");
+        float verticalRot = Input.GetAxisRaw("Vertical");
+
+        Vector3 characterAngle = new Vector3(horizontalRot, 0f, verticalRot);
+        characterAngle.Normalize();
+
+        if (characterAngle != Vector3.zero)
         {
-            isGrounded = false;
+            Quaternion rotation = Quaternion.LookRotation(characterAngle, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
     }
 }

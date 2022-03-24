@@ -561,7 +561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100699590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9061501, y: 8.03, z: 1.26}
+  m_LocalPosition: {x: 1.9061501, y: 16.12, z: 1.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -945,7 +945,6 @@ GameObject:
   - component: {fileID: 510984725}
   - component: {fileID: 510984724}
   - component: {fileID: 510984729}
-  - component: {fileID: 510984730}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -964,7 +963,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.39
+  m_Height: 0.27
   m_Radius: 0.5
   m_SlopeLimit: 90
   m_StepOffset: 0.1
@@ -1041,7 +1040,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510984723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.26, y: 2.523, z: 4.212}
+  m_LocalPosition: {x: 3.26, y: 2.45, z: 4.212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1059,28 +1058,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867aa89398341dc468ea10b61084453e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 3
-  runSpeed: 1.5
-  jumpHeight: 2
-  currentSpeed: 0
-  isGrounded: 0
-  turnSmoothTime: 0.15
---- !u!54 &510984730
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510984723}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 10
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  walkSpeed: 5
+  runSpeed: 8
+  runAcceleration: 7
+  rotationSpeed: 500
+  jumpHeight: 10
+  gravityModifier: 3
 --- !u!1 &551726505
 GameObject:
   m_ObjectHideFlags: 0
