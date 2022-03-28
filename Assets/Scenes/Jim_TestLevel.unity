@@ -2819,6 +2819,7 @@ MonoBehaviour:
   rotationSpeed: 500
   jumpHeight: 8
   gravityModifier: 3
+  jumpGrace: 0.1
   isGrounded: 0
 --- !u!4 &1999237706 stripped
 Transform:
