@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed = 5, runSpeed = 8, runAcceleration = 7, rotationSpeed = 500;
+    public float walkSpeed = 5, runSpeed = 8, runAcceleration = 7, rotationSpeed = 450;
     public float jumpHeight = 10, gravityModifier = 3;
     public float jumpGrace = 0.1f;
     public bool isGrounded;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         // Set angle of movement
-        Vector3 movementAngle = new Vector3(horizontalInput,    0f, verticalInput);
+        Vector3 movementAngle = new Vector3(horizontalInput, 0f, verticalInput);
 
         // Handle running
         if (Input.GetKey(KeyCode.LeftShift))
@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         if (characterController.isGrounded)
         {
             lastGroundedTime = Time.time;
+            ySpeed = -0.5f;
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -81,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBtnPressedTime = Time.time;
         }
 
+        // Handle animation
         if (characterController.isGrounded)
         {
             animator.SetBool("isJumping", false);
@@ -92,8 +94,6 @@ public class PlayerMovement : MonoBehaviour
 
         if ((Time.time - lastGroundedTime) <= jumpBtnPressedTime)
         {
-            ySpeed = -0.5f;
-
             if ((Time.time - jumpBtnPressedTime) <= jumpGrace)
             {
                 ySpeed = jumpHeight;

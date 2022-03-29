@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstaclePush : MonoBehaviour
 {
     [SerializeField]
-    private float forceMagnitude;
+    private float forceMagnitude = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +34,6 @@ public class ObstaclePush : MonoBehaviour
         forceDirection.y = 0;
         forceDirection.Normalize();
 
-        rigidbody.AddForceAtPosition(forceDirection * forceMagnitude * 0.2f, transform.position, ForceMode.Impulse);
+        rigidbody.AddForceAtPosition(forceDirection * forceMagnitude * 0.3f, transform.position, ForceMode.Impulse);
     }
 }
