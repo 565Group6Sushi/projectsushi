@@ -26,6 +26,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (currentMovement < maxHeight && isTriggered)
         {
+            currentMovement += transformRate;
             door.transform.position += new Vector3(0, (float) transformRate, 0);
         }
     }
