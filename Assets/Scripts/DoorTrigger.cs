@@ -8,6 +8,8 @@ public class DoorTrigger : MonoBehaviour
     GameObject door;
 
     public bool isTriggered = false;
+    public double maxHeight = 3.0, transformRate = 0.1;
+    public double currentMovement = 0;
 
     private void OnTriggerEnter(Collider col)
     {
@@ -16,8 +18,16 @@ public class DoorTrigger : MonoBehaviour
             if (col.CompareTag("TriggerCube"))
             {
                 isTriggered = true;
-                door.transform.position += new Vector3(0, 2, 0);
             }
+        }
+    }
+
+    void Update()
+    {
+        if (currentMovement < maxHeight && isTriggered)
+        {
+            currentMovement += transformRate;
+            door.transform.position += new Vector3(0, (float) transformRate, 0);
         }
     }
 }
