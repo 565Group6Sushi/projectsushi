@@ -136,6 +136,15 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
+
+        if ((characterController.collisionFlags & CollisionFlags.Sides) != 0)
+        {
+            animator.SetBool("isPushing", true);
+        }
+        else
+        {
+            animator.SetBool("isPushing", false);
+        }
     }
 
     private Vector3 AdjustVelocityToSlope(Vector3 velocity)
