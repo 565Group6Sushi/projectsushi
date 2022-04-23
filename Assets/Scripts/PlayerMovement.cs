@@ -9,9 +9,10 @@ public class PlayerMovement : MonoBehaviour
     public float jumpGrace = 0.1f;
     public bool isGrounded;
 
+    public bool enableInput = true;
     private Animator animator;
     private CharacterController characterController;
-    private float currentSpeed, ySpeed;
+    public float currentSpeed, ySpeed;
     private float? lastGroundedTime, jumpBtnPressedTime;
 
     // Start is called before the first frame update
@@ -24,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (enableInput == false)
+        {
+            return;
+        }
+
         // Get inputs
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -66,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         movementAngle.Normalize();
 
         Vector3 velocity = movementAngle * magnitude;
+        velocity = AdjustVelocityToSlope(velocity);
 
         // Handle jumping
         ySpeed += Physics.gravity.y * gravityModifier * Time.deltaTime;
@@ -89,7 +96,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            animator.SetBool("isJumping", true);
+            if (ySpeed > 3)
+            {
+                animator.SetBool("isJumping", true);
+            }
         }
 
         if ((Time.time - lastGroundedTime) <= jumpBtnPressedTime)
@@ -103,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
-        velocity.y = ySpeed;
+        velocity.y += ySpeed;
 
         // Move character
         characterController.Move(velocity * Time.deltaTime);
@@ -126,5 +136,23 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
+    }
+
+    private Vector3 AdjustVelocityToSlope(Vector3 velocity)
+    {
+        var ray = new Ray(transform.position, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 0.2f))
+        {
+            var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            var adjustedVelocity = slopeRotation * velocity;
+
+            if (adjustedVelocity.y < 0)
+            {
+                return adjustedVelocity;
+            }
+        }
+
+        return velocity;
     }
 }
