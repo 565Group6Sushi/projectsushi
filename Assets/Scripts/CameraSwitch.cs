@@ -11,27 +11,19 @@ public class CameraSwitch : MonoBehaviour
 	[SerializeField]
 	private CinemachineVirtualCamera[] nonActiveCams; //all deactivated virtual cameras in the scene
 
-	//Start is called before the first frame update
-	void Start()
-	{
-
-	}
-
-	//Update is called once per frame
-	void Update()
-	{
-		
-	}
-
 	private void OnTriggerEnter(Collider other)
 	{
-		//set array index 0 to the active camera being switched to
-		activeCam.Priority = 1;
+		//Checks to see if the collision is the player character
+        if (other.CompareTag("Player"))
+        {
+			//set array index 0 to the active camera being switched to
+			activeCam.Priority = 1;
 
-		//set all non-active cameras to any other 
-		for (int i = 0; i < nonActiveCams.Length; i++)
-		{
-			nonActiveCams[i].Priority = 0;
+			//set all non-active cameras to any other 
+			for (int i = 0; i < nonActiveCams.Length; i++)
+			{
+				nonActiveCams[i].Priority = 0;
+			}
 		}
 	}
 }
