@@ -7,6 +7,9 @@ public class DoorTrigger : MonoBehaviour
     [SerializeField]
     GameObject door;
 
+    [SerializeField]
+    GameObject collideObject;
+
     public bool isTriggered = false;
     public double maxHeight = 3.0, transformRate = 0.1;
     public double currentMovement = 0;
@@ -15,7 +18,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (!isTriggered)
         {
-            if (col.CompareTag("TriggerCube"))
+            if (col.gameObject == collideObject)
             {
                 isTriggered = true;
             }
