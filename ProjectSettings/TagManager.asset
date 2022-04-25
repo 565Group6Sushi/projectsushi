@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Base
   - ResetPlane
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
