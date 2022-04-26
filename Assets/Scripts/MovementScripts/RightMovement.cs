@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class RightMovement : MonoBehaviour
 {
-    public float walkSpeed = 5, runSpeed = 8, runAcceleration = 7, rotationSpeed = 450;
-    public float jumpHeight = 10, gravityModifier = 2;
+    public float walkSpeed = 2, runSpeed = 4, runAcceleration = 2, rotationSpeed = 450;
+    public float jumpHeight = 8, gravityModifier = 2;
     public float jumpGrace = 0.1f;
     public bool isGrounded;
 
@@ -25,8 +25,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Get inputs
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Vertical");
+        float verticalInput = Input.GetAxis("Horizontal") * -1;
 
         // Set angle of movement
         Vector3 movementAngle = new Vector3(horizontalInput, 0f, verticalInput);
@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         movementAngle.Normalize();
 
         Vector3 velocity = movementAngle * magnitude;
+        Debug.Log("Right Movement speed: " + velocity);
 
         // Handle jumping
         ySpeed += Physics.gravity.y * gravityModifier * Time.deltaTime;
@@ -102,15 +103,15 @@ public class PlayerMovement : MonoBehaviour
                 lastGroundedTime = null;
             }
         }
-        
+
         velocity.y = ySpeed;
 
         // Move character
         characterController.Move(velocity * Time.deltaTime);
 
         // Set angle of character
-        float horizontalRot = Input.GetAxisRaw("Horizontal");
-        float verticalRot = Input.GetAxisRaw("Vertical");
+        float horizontalRot = Input.GetAxisRaw("Vertical");
+        float verticalRot = Input.GetAxisRaw("Horizontal") * -1;
 
         Vector3 characterAngle = new Vector3(horizontalRot, 0f, verticalRot);
         characterAngle.Normalize();
@@ -125,6 +126,15 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("isWalking", false);
+        }
+
+        if ((characterController.collisionFlags & CollisionFlags.Sides) != 0)
+        {
+            animator.SetBool("isPushing", true);
+        }
+        else
+        {
+            animator.SetBool("isPushing", false);
         }
     }
 }

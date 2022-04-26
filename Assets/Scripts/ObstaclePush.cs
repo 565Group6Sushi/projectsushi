@@ -10,13 +10,13 @@ public class ObstaclePush : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -36,4 +36,6 @@ public class ObstaclePush : MonoBehaviour
 
         rigidbody.AddForceAtPosition(forceDirection * forceMagnitude * 0.3f, transform.position, ForceMode.Impulse);
     }
+
+    
 }
