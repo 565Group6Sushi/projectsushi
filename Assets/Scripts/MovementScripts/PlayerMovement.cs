@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed = 2, runSpeed = 4, runAcceleration = 2, rotationSpeed = 450;
+    public float walkSpeed = 2, runSpeed = 3.5f, runAcceleration = 2, rotationSpeed = 450;
     public float jumpHeight = 8, gravityModifier = 2;
     public float jumpGrace = 0.1f;
     public bool isGrounded;
