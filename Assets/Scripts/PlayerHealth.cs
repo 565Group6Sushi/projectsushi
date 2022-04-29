@@ -8,7 +8,10 @@ public class PlayerHealth : MonoBehaviour
 	public Image healthBar;
     public float damagePoints = 30f;
 
-    private bool playerDeath = false;
+    private IEnumerator coroutine;
+    private bool canDamage = true;
+    private float damageDelay = 3f;
+    public bool isDead = false;
 
 	float currentHealth, maxHealth = 90f;
 
@@ -25,8 +28,12 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth == 0)
         {
-            playerDeath = true;
+            isDead = true;
             Invoke("RevivePlayer", 2f);
+        }
+        else
+        {
+            isDead = false;
         }
     }
 
@@ -35,35 +42,41 @@ public class PlayerHealth : MonoBehaviour
         healthBar.fillAmount = currentHealth / maxHealth;
     }
 
-    public void DamageAmount(float damagePoints)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if(currentHealth > 0)
+        if(canDamage == true)
         {
-            currentHealth -= damagePoints;
+            Rigidbody rigidbody = hit.collider.attachedRigidbody;
+
+            if (rigidbody == null || rigidbody != rigidbody.CompareTag("TriggerCube"))
+            {
+                return;
+            }
+
+            // Check if collision object is an enemy
+            if (rigidbody == rigidbody.CompareTag("TriggerCube"))
+            {
+                if (currentHealth > 0)
+                {
+                    currentHealth -= damagePoints;
+                }
+            }
+
+            canDamage = false;
+            coroutine = WaitToDamage(damageDelay);
+            StartCoroutine(coroutine);
         }
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private IEnumerator WaitToDamage(float waitTime)
     {
-        Rigidbody rigidbody = hit.collider.attachedRigidbody;
-
-        if(rigidbody == null || rigidbody != rigidbody.CompareTag("TriggerCube"))
-        {
-            return;
-        }
-
-        // Check if collision object has rigid body
-        if (rigidbody == rigidbody.CompareTag("TriggerCube"))
-        {
-            if (currentHealth > 0)
-            {
-                currentHealth -= damagePoints;
-            }
-        }
+        yield return new WaitForSeconds(waitTime);
+        canDamage = true;
     }
 
     public void RevivePlayer()
     {
         currentHealth = maxHealth;
     }
+
 }
