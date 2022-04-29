@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SushiCollectible : MonoBehaviour
 {
+    [SerializeField]
+    AudioClip audioClip;
+
     float floatSpeed = 1f, floatHeight = 0.1f;
     float collectSpeed = 4f, collectHeight = 4f, currentMovedHeight = 0f;
     float scaleSpeed = 4f;
@@ -49,6 +52,8 @@ public class SushiCollectible : MonoBehaviour
             {
                 pointFade.UpdateFadeStatus(true);
             }
+
+            PlaySoundEffect();
         }
     }
 
@@ -72,5 +77,13 @@ public class SushiCollectible : MonoBehaviour
         {
             transform.localScale -= new Vector3(scaleSpeed, scaleSpeed, scaleSpeed);
         }
+    }
+
+    private void PlaySoundEffect()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+
+        audio.clip = audioClip;
+        audio.Play();
     }
 }
