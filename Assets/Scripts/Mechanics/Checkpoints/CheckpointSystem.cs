@@ -13,6 +13,14 @@ public class CheckpointSystem : MonoBehaviour
     [SerializeField]
     List<GameObject> checkpointPositions;
 
+    private void Update()
+    {
+        if (gameObject.GetComponent<PlayerHealth>().isDead)
+        {
+            this.gameObject.transform.position = currentCheckpoint.transform.position;
+        }
+    }
+
     private void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("ResetPlane"))
