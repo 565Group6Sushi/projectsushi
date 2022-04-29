@@ -5,13 +5,13 @@ using UnityEngine.Events;
 
 public class CollectibleInventory : MonoBehaviour
 {
-    public int NumberOfSushi { get; private set; }
-
     public UnityEvent<CollectibleInventory> OnSushiCollected;
 
     public void SushiCollected()
     {
-        NumberOfSushi++;
+        int savedScore = PlayerPrefs.GetInt("RunScore");
+        savedScore++;
+        PlayerPrefs.SetInt("RunScore", savedScore);
         OnSushiCollected.Invoke(this);
     }
 }

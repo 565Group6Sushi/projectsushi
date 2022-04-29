@@ -15,7 +15,7 @@ public class CollectibleUI : MonoBehaviour
 
     public void UpdateSushiText(CollectibleInventory inventory)
     {
-        var sushiScore = inventory.NumberOfSushi * 100;
+        var sushiScore = PlayerPrefs.GetInt("RunScore") * 100;
         sushiText.text = sushiScore.ToString();
     }
 }
