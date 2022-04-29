@@ -29,6 +29,11 @@ public class ObstaclePush : MonoBehaviour
             return;
         }
 
+        if(hit.moveDirection.y < -0.3f)
+        {
+            return;
+        }
+
         // Calculate direction of force
         Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
         forceDirection.y = 0;
