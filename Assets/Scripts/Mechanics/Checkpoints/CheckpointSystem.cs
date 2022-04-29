@@ -33,7 +33,8 @@ public class CheckpointSystem : MonoBehaviour
                     currentCheckpoint = checkpointPositions[objectIndex];
 
                     checkpointAreas.Remove(col.gameObject);
-                    Destroy(col.gameObject);
+                    //Destroy(col.gameObject);
+                    col.gameObject.SetActive(false);
                 }
             }
         }
