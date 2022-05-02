@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstaclePush : MonoBehaviour
 {
     [SerializeField]
-    private float forceMagnitude = 27;
+    private float forceMagnitude = 17;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
