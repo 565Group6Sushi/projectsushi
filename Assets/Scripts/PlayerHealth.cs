@@ -51,13 +51,13 @@ public class PlayerHealth : MonoBehaviour
         {
             Rigidbody rigidbody = hit.collider.attachedRigidbody;
 
-            if (rigidbody == null || rigidbody != rigidbody.CompareTag(checkTag))
+            if (rigidbody == null || rigidbody != rigidbody.CompareTag("Enemy"))
             {
                 return;
             }
 
             // Check if collision object is an enemy
-            if (rigidbody == rigidbody.CompareTag(checkTag))
+            if (rigidbody == rigidbody.CompareTag("Enemy"))
             {
                 if (currentHealth > 0)
                 {
