@@ -12789,7 +12789,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.501
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -14192,7 +14192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66446861fca6b544aa4feb4db0919fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 27
+  forceMagnitude: 17
 --- !u!4 &1999237706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6c1080366320451498fc1d6d06caa58d, type: 3}
@@ -14249,6 +14249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0669d967de0743d4e9aeef3f3c3829d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkTag: TriggerCube
   healthText: {fileID: 2114042266}
   healthBar: {fileID: 2067659804}
   damagePoints: 30
