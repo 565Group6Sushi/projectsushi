@@ -40,7 +40,7 @@ public class NextLevel : MonoBehaviour
         }
     }
 
-        void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         collidingObject = other.gameObject;
 
@@ -61,13 +61,30 @@ public class NextLevel : MonoBehaviour
             disableInput(collidingObject);
             changeAnimation();
             nextLevel = true;
+            Debug.Log("Collided");
         }
     }
 
     private void disableInput(GameObject gameObject)
     {
-        PlayerMovement movementComponent = collidingObject.GetComponent<PlayerMovement>();
-        movementComponent.enableInput = false;
+        PlayerMovement normalMoveComponent = collidingObject.GetComponent<PlayerMovement>();
+        LeftMovement leftMoveComponent = collidingObject.GetComponent<LeftMovement>();
+        RightMovement rightMoveComponent = collidingObject.GetComponent<RightMovement>();
+
+        if (normalMoveComponent != null)
+        {
+            normalMoveComponent.enableInput = false;
+        }
+
+        if (leftMoveComponent != null)
+        {
+            leftMoveComponent.enableInput = false;
+        }
+
+        if (rightMoveComponent != null)
+        {
+            rightMoveComponent.enableInput = false;
+        }
     }
 
     private void changeAnimation()
