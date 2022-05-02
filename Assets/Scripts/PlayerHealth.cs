@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField]
+    string checkTag;
+
     public Text healthText;
 	public Image healthBar;
     public float damagePoints = 30f;
@@ -12,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     private bool canDamage = true;
     private float damageDelay = 3f;
     public bool isDead = false;
-
+    
 	float currentHealth, maxHealth = 90f;
 
     private void Start()
@@ -48,13 +51,13 @@ public class PlayerHealth : MonoBehaviour
         {
             Rigidbody rigidbody = hit.collider.attachedRigidbody;
 
-            if (rigidbody == null || rigidbody != rigidbody.CompareTag("TriggerCube"))
+            if (rigidbody == null || rigidbody != rigidbody.CompareTag(checkTag))
             {
                 return;
             }
 
             // Check if collision object is an enemy
-            if (rigidbody == rigidbody.CompareTag("TriggerCube"))
+            if (rigidbody == rigidbody.CompareTag(checkTag))
             {
                 if (currentHealth > 0)
                 {
