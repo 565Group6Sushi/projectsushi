@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class RightMovement : MonoBehaviour
 {
-    public float walkSpeed = 2, runSpeed = 4, runAcceleration = 2, rotationSpeed = 450;
+    public float walkSpeed = 2, runSpeed = 3.5f, runAcceleration = 2, rotationSpeed = 450;
     public float jumpHeight = 8, gravityModifier = 2;
     public float jumpGrace = 0.1f;
     public bool isGrounded;
 
+    public bool enableInput = true;
     private Animator animator;
     private CharacterController characterController;
-    private float currentSpeed, ySpeed;
+    public float currentSpeed, ySpeed;
     private float? lastGroundedTime, jumpBtnPressedTime;
 
     // Start is called before the first frame update
@@ -24,6 +25,11 @@ public class RightMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (enableInput == false)
+        {
+            return;
+        }
+
         // Get inputs
         float horizontalInput = Input.GetAxis("Vertical");
         float verticalInput = Input.GetAxis("Horizontal") * -1;
@@ -66,7 +72,9 @@ public class RightMovement : MonoBehaviour
         movementAngle.Normalize();
 
         Vector3 velocity = movementAngle * magnitude;
-        Debug.Log("Right Movement speed: " + velocity);
+        velocity = AdjustVelocityToSlope(velocity);
+
+        Debug.Log("Normal Movement speed: " + velocity);
 
         // Handle jumping
         ySpeed += Physics.gravity.y * gravityModifier * Time.deltaTime;
@@ -90,7 +98,10 @@ public class RightMovement : MonoBehaviour
         }
         else
         {
-            animator.SetBool("isJumping", true);
+            if (ySpeed > 3)
+            {
+                animator.SetBool("isJumping", true);
+            }
         }
 
         if ((Time.time - lastGroundedTime) <= jumpBtnPressedTime)
@@ -104,7 +115,7 @@ public class RightMovement : MonoBehaviour
             }
         }
 
-        velocity.y = ySpeed;
+        velocity.y += ySpeed;
 
         // Move character
         characterController.Move(velocity * Time.deltaTime);
@@ -136,5 +147,23 @@ public class RightMovement : MonoBehaviour
         {
             animator.SetBool("isPushing", false);
         }
+    }
+
+    private Vector3 AdjustVelocityToSlope(Vector3 velocity)
+    {
+        var ray = new Ray(transform.position, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 0.2f))
+        {
+            var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            var adjustedVelocity = slopeRotation * velocity;
+
+            if (adjustedVelocity.y < 0)
+            {
+                return adjustedVelocity;
+            }
+        }
+
+        return velocity;
     }
 }

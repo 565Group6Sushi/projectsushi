@@ -11,11 +11,14 @@ public class SwapMovementControls : MonoBehaviour
     [SerializeField]
     private bool leftMovement;
 
+    private GameObject playerObject;
+    private IEnumerator coroutine;
+
 	private void OnTriggerEnter(Collider other)
 	{
         if (other.CompareTag("Player"))
         {
-            GameObject playerObject = other.gameObject;
+            playerObject = other.gameObject;
             if (normalMovement && !rightMovement && !leftMovement && playerObject.GetComponent<PlayerMovement>() == null)
             {
                 if(playerObject.GetComponent<RightMovement>() != null)
@@ -27,7 +30,9 @@ public class SwapMovementControls : MonoBehaviour
                     Destroy(playerObject.GetComponent<LeftMovement>());
                 }
 
-                playerObject.AddComponent<PlayerMovement>();
+                coroutine = WaitToAddDefaultControls(2.0f);
+                StartCoroutine(coroutine);
+                //playerObject.AddComponent<PlayerMovement>();
             }
             else if (rightMovement && !normalMovement && !leftMovement && playerObject.GetComponent<RightMovement>() == null)
             {
@@ -40,7 +45,9 @@ public class SwapMovementControls : MonoBehaviour
                     Destroy(playerObject.GetComponent<LeftMovement>());
                 }
 
-                playerObject.AddComponent<RightMovement>();
+                coroutine = WaitToAddRightControls(2.0f);
+                StartCoroutine(coroutine);
+                //playerObject.AddComponent<RightMovement>();
             }
             else if (leftMovement && !normalMovement && !rightMovement && playerObject.GetComponent<LeftMovement>() == null)
             {
@@ -52,9 +59,29 @@ public class SwapMovementControls : MonoBehaviour
                 {
                     Destroy(playerObject.GetComponent<RightMovement>());
                 }
-            
-                playerObject.AddComponent<LeftMovement>();
+
+                coroutine = WaitToAddLeftControls(2.0f);
+                StartCoroutine(coroutine);
+                //playerObject.AddComponent<LeftMovement>();
             }
         }
 	}
+
+    private IEnumerator WaitToAddDefaultControls(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        playerObject.AddComponent<PlayerMovement>();
+    }
+
+    private IEnumerator WaitToAddRightControls(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        playerObject.AddComponent<RightMovement>();
+    }
+
+    private IEnumerator WaitToAddLeftControls(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        playerObject.AddComponent<LeftMovement>();
+    }
 }
