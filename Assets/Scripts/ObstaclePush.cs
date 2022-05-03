@@ -5,19 +5,7 @@ using UnityEngine;
 public class ObstaclePush : MonoBehaviour
 {
     [SerializeField]
-    private float forceMagnitude = 1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
+    private float forceMagnitude = 17;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -29,18 +17,29 @@ public class ObstaclePush : MonoBehaviour
             return;
         }
 
-        if(hit.moveDirection.y < -0.3f)
+        if (hit.collider.GetType() == typeof(SphereCollider))
+        {
+            ApplyForce(hit);
+        } else if (hit.collider.GetType() == typeof(BoxCollider))
+        {
+            if (hit.moveDirection.y < -0.3f)
+            {
+                return;
+            }
+            ApplyForce(hit);
+        } else
         {
             return;
         }
+    }
 
+    private void ApplyForce(ControllerColliderHit hit)
+    {
         // Calculate direction of force
         Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
         forceDirection.y = 0;
         forceDirection.Normalize();
 
-        rigidbody.AddForceAtPosition(forceDirection * forceMagnitude * 0.3f, transform.position, ForceMode.Impulse);
+        hit.collider.attachedRigidbody.AddForceAtPosition(forceDirection * forceMagnitude * 0.3f, transform.position, ForceMode.Impulse);
     }
-
-    
 }

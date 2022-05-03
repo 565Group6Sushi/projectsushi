@@ -7,7 +7,7 @@ TagManager:
   - Base
   - ResetPlane
   - Checkpoint
-  - TriggerCube
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -74,8 +74,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 velocity = movementAngle * magnitude;
         velocity = AdjustVelocityToSlope(velocity);
 
-        Debug.Log("Normal Movement speed: " + velocity);
-
         // Handle jumping
         ySpeed += Physics.gravity.y * gravityModifier * Time.deltaTime;
 
