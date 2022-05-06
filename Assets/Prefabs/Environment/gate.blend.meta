@@ -3,7 +3,37 @@ guid: fe4c708218f7c7e4489bdbd6f0b9e583
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: dea39454a8e34bd448f39aea2ef527ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 37987e941259b8447b6df87af4ca9dc4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 7aced19c6b8a9da458173257248c90e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: color-border
+    second: {fileID: 2100000, guid: a904e1ca80333f643ba4279942ffb95d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lock-sign
+    second: {fileID: 2100000, guid: dbb5c05571a432940a7a4ee00a8607ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sign-border
+    second: {fileID: 2100000, guid: 30f3b17ccd0d9c24d976cccd59c72786, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
