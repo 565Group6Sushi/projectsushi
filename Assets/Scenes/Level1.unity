@@ -697,9 +697,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3050006485347510018, guid: 181c207459369c94f81f7272b09bf598, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 102258117}
+    - target: {fileID: 3050006485347510018, guid: 181c207459369c94f81f7272b09bf598, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
     - target: {fileID: 6060931367175664717, guid: 181c207459369c94f81f7272b09bf598, type: 3}
       propertyPath: m_Name
       value: PauseMenuPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6426652243618917922, guid: 181c207459369c94f81f7272b09bf598, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 102258119}
+    - target: {fileID: 6426652243618917922, guid: 181c207459369c94f81f7272b09bf598, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6426652243618917922, guid: 181c207459369c94f81f7272b09bf598, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseScript, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181c207459369c94f81f7272b09bf598, type: 3}
@@ -713,6 +733,42 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1523888501061370062, guid: 181c207459369c94f81f7272b09bf598, type: 3}
   m_PrefabInstance: {fileID: 102258113}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &102258116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9132587933244012999, guid: 181c207459369c94f81f7272b09bf598, type: 3}
+  m_PrefabInstance: {fileID: 102258113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &102258117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102258116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56e34a6a8907a39478ddd58af028e7a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 102258114}
+--- !u!1 &102258118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3856713371457095989, guid: 181c207459369c94f81f7272b09bf598, type: 3}
+  m_PrefabInstance: {fileID: 102258113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &102258119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102258118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56e34a6a8907a39478ddd58af028e7a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 102258114}
 --- !u!1 &121940538
 GameObject:
   m_ObjectHideFlags: 0
