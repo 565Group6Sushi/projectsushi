@@ -18,14 +18,10 @@ public class PauseScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape Was Pushed");
-            if (GameIsPaused)
-            {
-                Resume();
-
-            }
-            else
+            if (!GameIsPaused)
             {
                 Pause();
+
             }
         }
 

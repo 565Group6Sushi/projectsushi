@@ -12,14 +12,14 @@ public class InitialCameraSwitch : MonoBehaviour
 	private CinemachineVirtualCamera oldActiveCam; //the old active vitual cam we are swapping from
 	void Start()
 	{
-		newActiveCam.Priority = 1;
-		oldActiveCam.Priority = 0;
 		StartCoroutine(ChangeCameraWait());
 	}
 
 	IEnumerator ChangeCameraWait()
     {
-		yield return new WaitForSeconds(4);
-    }
+		yield return new WaitForSeconds(1);
+		newActiveCam.Priority = 1;
+		oldActiveCam.Priority = 0;
+	}
 
 }
