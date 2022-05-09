@@ -533,7 +533,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Super Sushi Dude
+  m_text: Bento Breakout
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cff5511e7462cfb41822af7836ccfd6a, type: 2}
   m_sharedMaterial: {fileID: -2890361751719390685, guid: cff5511e7462cfb41822af7836ccfd6a, type: 2}

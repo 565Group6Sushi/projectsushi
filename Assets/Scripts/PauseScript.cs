@@ -32,20 +32,24 @@ public class PauseScript : MonoBehaviour
     }
     public void Resume()
     {
+        Debug.Log("Resume Was Pushed");
         pauseMenuUI.SetActive(false);
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
         GameIsPaused = false;
         
     }
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
-       // Time.timeScale = 0f;
+        Time.timeScale = 0f;
         GameIsPaused = true;
     }
 
     public void LoadMenu() {
-      //  SceneManager.LoadScene("Menu");
+        Debug.Log("Quit Was Pushed");
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
     }
    
 }
