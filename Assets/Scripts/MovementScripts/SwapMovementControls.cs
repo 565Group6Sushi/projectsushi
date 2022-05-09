@@ -30,9 +30,8 @@ public class SwapMovementControls : MonoBehaviour
                     Destroy(playerObject.GetComponent<LeftMovement>());
                 }
 
-                coroutine = WaitToAddDefaultControls(2.0f);
+                coroutine = WaitToAddDefaultControls(0.5f);
                 StartCoroutine(coroutine);
-                //playerObject.AddComponent<PlayerMovement>();
             }
             else if (rightMovement && !normalMovement && !leftMovement && playerObject.GetComponent<RightMovement>() == null)
             {
@@ -45,9 +44,8 @@ public class SwapMovementControls : MonoBehaviour
                     Destroy(playerObject.GetComponent<LeftMovement>());
                 }
 
-                coroutine = WaitToAddRightControls(2.0f);
+                coroutine = WaitToAddRightControls(0.5f);
                 StartCoroutine(coroutine);
-                //playerObject.AddComponent<RightMovement>();
             }
             else if (leftMovement && !normalMovement && !rightMovement && playerObject.GetComponent<LeftMovement>() == null)
             {
@@ -60,9 +58,8 @@ public class SwapMovementControls : MonoBehaviour
                     Destroy(playerObject.GetComponent<RightMovement>());
                 }
 
-                coroutine = WaitToAddLeftControls(2.0f);
+                coroutine = WaitToAddLeftControls(0.5f);
                 StartCoroutine(coroutine);
-                //playerObject.AddComponent<LeftMovement>();
             }
         }
 	}
